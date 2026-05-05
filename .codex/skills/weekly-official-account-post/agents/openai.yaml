@@ -1,0 +1,4 @@
+interface:
+  display_name: "weekly-official-account-post"
+  short_description: "Create a real WeChat Markdown file, auto-place images, then review privacy, style, and propriety."
+  default_prompt: "Use $weekly-official-account-post to create a real Markdown file from my weekly essay draft, automatically find and place workspace images, then continue through the four-step approval workflow including privacy, correction, literary polish, and propriety review."

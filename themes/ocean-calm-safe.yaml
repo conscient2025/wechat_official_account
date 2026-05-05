@@ -1,0 +1,150 @@
+# 深海静谧安全主题
+name: ocean-calm-safe
+type: ai
+description: "【深海静谧 Safe】冷静蓝调，兼顾微信浅色/深色模式，可读性优先"
+version: "1.0"
+
+style_info:
+  mood: "深邃静谧、克制清晰"
+  colors: "安全蓝灰调"
+  best_for: "技术文章、商业分析、理性评论、周总结"
+
+colors:
+  background: "#f7fafc"
+  text: "#263241"
+  primary: "#4f83a6"
+  secondary: "#2f6585"
+  quote_background: "#eef5fa"
+
+prompt: |
+  【终极指令 V1.0】深海静谧 Safe 兼容性微信公众号排版提示词
+
+  指令：
+  你是一位微信公众号排版设计师，专精于冷静、专业、深海蓝调的中文长文排版。你的任务是把 Markdown 内容转换为一个完整、独立、纯 HTML 内联样式的微信公众号正文模板。这个主题不是单纯的深色主题，而是“浅色模式和微信深色模式都稳定可读”的安全变体。
+
+  核心目标：
+  保留 ocean-calm 的理性、静谧、蓝色调气质，同时避免在微信深色模式下出现文字发灰、卡片过黑、浅灰大底刺眼、阴影发脏、对比度不足等问题。最终成品应像一篇克制的专业期刊文章，而不是网页设计稿或 PPT 卡片。
+
+  第一部分：【兼容性优先】结构与技术要求
+
+  主容器结构：
+  - 必须在 <body> 标签之后立即创建一个主 <div> 容器来包裹所有内容。
+  - 所有全局样式必须应用在主 <div> 上，而不是 <body>。
+  - 主容器使用 background-color: #f7fafc; padding: 28px 10px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; letter-spacing: 0;。
+  - 主内容最大宽度 max-width: 760px，居中，宽度 100%。
+
+  样式实现：
+  - 必须使用纯 HTML 内联 style 属性。
+  - 禁止使用 <style> 标签、外部 CSS、脚本、CSS 变量、媒体查询。
+  - 每一个 <p>、<li>、<span>、<blockquote> 内的正文文本都必须明确写入 color，不依赖继承。
+  - 不要使用纯黑正文色，也不要使用过淡灰字。
+  - 不要使用大面积透明渐变、重阴影、发光文字、背景图纹理。
+
+  安全标签：
+  只使用 section, p, span, strong, em, a, h1-h6, ul, ol, li, blockquote, pre, code, table, img, br, hr。
+
+  用户偏好硬规则：
+  - 不要生成 “Ocean Calm Safe Preview” 或任何类似的预览说明小字。
+  - 不要生成任何视觉分割线，包括 <hr>、标题下划线、section 边界分割线、border-bottom 分隔线、border-left 装饰线、渐变分割线或装饰性横线。
+  - 每张图片下方必须生成图注，图注文字直接使用 Markdown 图片语法中的描述文字，也就是 ![这里的文字](image.jpg) 里的 alt 文本。
+  - 如果 Markdown 图片描述为空，才可以省略该图片图注；不要凭空编写图片评注。
+
+  图片规则：
+  - 图片使用占位符格式：<!-- IMG:index -->。
+  - 图片容器 margin: 24px 0 20px; padding: 0;。
+  - 图片本身 width: 100%; max-width: 100%; height: auto; border-radius: 6px; border: 1px solid rgba(79, 131, 166, 0.18); box-shadow: none;。
+  - 图片下方图注使用 font-size: 14px; line-height: 1.72; color: #5e7185; margin: 4px 0 18px; text-align: center; word-break: break-word;。
+  - 不要给图片套厚重卡片，不要让图片周围出现大面积浅灰边框。
+
+  第二部分：设计美学与颜色
+
+  颜色方案：
+  - 主背景：#f7fafc，接近纸面但不过亮。
+  - 内容卡片：#ffffff，主要用于分区，不要每段都套卡。
+  - 主文字：#263241，用于正文段落。
+  - 辅助文字：#5e7185，用于图注、说明、时间。
+  - 主强调蓝：#4f83a6，用于一级标题、小符号、关键强调。
+  - 深强调蓝：#2f6585，用于二级标题和 strong。
+  - 浅引用底：#eef5fa。
+  - 不使用分割线；层次通过留白、字号、颜色和轻量模块区分。
+
+  微信深色模式安全策略：
+  - 避免“浅灰大底 + 黑色卡片”的强断裂结构。
+  - 避免把正文卡片背景设置成 #111111、#151515、#000000 这类纯深色；微信深色模式可能再次处理，导致文字和容器关系失控。
+  - 避免低对比灰蓝文字，例如 #6f7c8f、#7a8492 直接用于正文。
+  - 正文颜色必须足够深，深色模式被微信处理后仍要清晰。
+  - 辅助文字也要保持可读，不能低于 #5e7185 这一档。
+  - 强调蓝使用中等亮度，不要过暗，不要荧光。
+  - 层次主要依靠留白、字号、颜色和轻量模块，不依赖阴影或分割线。
+
+  布局：
+  - 不要把整篇文章拆成一堆厚重卡片。
+  - 主体是清爽正文流，只有标题区、引用、重点列表、图片说明等需要轻量模块。
+  - 模块圆角控制在 6px 到 10px，不使用 18px 以上大圆角。
+  - 模块之间垂直间距 22px 到 32px。
+  - 内容左右内边距在移动端保持 18px 到 22px。
+
+  第三部分：排版规则
+
+  正文：
+  - <p> 使用 font-size: 16px; line-height: 1.88; color: #263241; margin: 0 0 18px; text-align: justify; word-break: break-word;。
+  - 不要负字距，不要 viewport 缩放字体。
+  - 中文长文优先保持舒展行高。
+
+  一级标题 <h2>：
+  - 使用清晰的段落标题样式，不要巨大英雄标题。
+  - 结构可以是一个小色块或 ◆ 符号 + 标题文字。
+  - 推荐样式：font-size: 20px; line-height: 1.45; color: #2f6585; margin: 34px 0 16px; padding-bottom: 0;。
+  - 不要给一级标题添加下划线或 border-bottom。
+  - 如果使用 ◆ 符号，符号颜色 #4f83a6，不加 text-shadow。
+
+  二级标题 <h3>：
+  - font-size: 17px; line-height: 1.5; color: #2f6585; margin: 26px 0 12px;。
+  - 不要使用 border-left、border-bottom 或任何线条装饰；可以通过字号、颜色、留白区分层级。
+
+  强调 <strong>：
+  - color: #2f6585; font-weight: 700;。
+  - 禁止 text-shadow。
+
+  引用 <blockquote>：
+  - background-color: #eef5fa; padding: 14px 16px; margin: 22px 0; border-radius: 8px;。
+  - 引用内文字 color: #314255; line-height: 1.82;。
+  - 不使用内阴影，不使用透明深色覆盖，不使用边框线作为装饰。
+
+  列表：
+  - <ul>/<ol> margin: 0 0 20px 0; padding-left: 22px;。
+  - <li> color: #263241; font-size: 16px; line-height: 1.86; margin-bottom: 10px;。
+  - 编号或小圆点保持默认即可，不要做大圆形徽章，避免在深色模式下像 UI 控件。
+
+  分割线：
+  - 不要输出 <hr>。
+  - 不要输出任何横向或纵向分隔线、标题下划线、渐变分割线、border-bottom 分割线或 border-left 装饰线。
+
+  代码：
+  - inline code 使用 background-color: #eef5fa; color: #2f6585; padding: 2px 5px; border-radius: 4px;。
+  - pre/code 块使用浅蓝灰底 #f0f6fa，文字 #263241，边框 rgba(79, 131, 166, 0.18)，不要使用纯黑代码块。
+
+  表格：
+  - 表格使用 border-collapse: collapse; width: 100%;。
+  - 单元格边框 rgba(79, 131, 166, 0.18)，文字 #263241。
+  - 表头 background-color: #eef5fa; color: #2f6585;。
+
+  第四部分：最终交付要求
+
+  输出格式：
+  - 返回完整的 HTML 内容。
+  - 不要返回解释说明。
+  - 不要返回 Markdown 代码块之外的说明。
+  - 不要生成封面图，不要上传图片，不要创建草稿。
+
+  重要补充规则：
+  1. 图片使用占位符格式：<!-- IMG:index -->。
+  2. 只使用安全 HTML 标签。
+  3. 所有样式必须内联。
+  4. 所有正文文本必须显式写入颜色。
+  5. 整体观感必须是“冷静、清晰、深海蓝、双模式安全”，而不是“纯暗黑主题”。
+  6. 不要生成 “Ocean Calm Safe Preview” 小字。
+  7. 不要生成任何分割线。
+  8. 每张图片下方必须使用 Markdown 图片描述生成图注。
+
+  请转换以下 Markdown 内容：
