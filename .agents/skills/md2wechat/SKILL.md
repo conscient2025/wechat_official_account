@@ -51,6 +51,19 @@ Separate local-only actions from actions that may transmit content.
 
 Run transfer actions only when the user explicitly asks for that operation and destination class. Draft creation, image-post creation, publishing, upload, and remote image generation require explicit user intent.
 
+## Local-First AI Theme Workflow
+
+For themes whose resolved theme type is `ai`, use a local-first workflow by default.
+
+- Do not run remote AI conversion for AI themes unless the user explicitly allows external AI processing for the article text.
+- Do not run `preview --mode ai`, `convert --mode ai`, or any command path that may implicitly send article text to a remote model for an AI theme by default.
+- Treat the theme YAML as the output style specification, not as approval to transmit article text.
+- Before converting an AI theme, look for a local converter script that implements the theme, such as `tools/generate_ocean_preview.py` for `ocean-calm-safe`, or a future `tools/generate_<theme>_preview.py` equivalent.
+- If a local script exists, inspect it before use. Verify that it matches the theme requirements, uses inline styles, handles local images safely, preserves or implements image captions when required, and does not call remote AI, upload files, create drafts, or transmit article text.
+- If the local script is correct, use it directly to generate the preview HTML.
+- If the local script is missing or does not match the theme requirements, create or fix the local script first, then run it.
+- For draft creation after a local AI-theme conversion, use the local HTML as the source of truth. Upload and replace images only after the user explicitly asks for draft creation or image upload.
+
 ## Defaults And Config
 
 - Draft upload and publish-related actions require `WECHAT_APPID` and `WECHAT_SECRET`.
@@ -166,6 +179,14 @@ CLI limits:
 - `--author`: max 16 characters.
 - `--digest`: max 128 characters.
 
+Digest writing:
+
+- Prefer explicit metadata when present: `digest`, then `summary`, then `description`.
+- If no usable digest metadata exists, write a concise digest from the actual article content each time.
+- Do not use a fixed digest template across articles.
+- Do not invent claims, topics, outcomes, names, dates, or categories that are not supported by the article.
+- Keep the digest within the CLI limit and make it useful as draft metadata, not body copy.
+
 Draft behavior:
 
 - If digest is empty when creating a draft, the draft layer generates one from article HTML content with a 120-character fallback.
@@ -174,6 +195,18 @@ Draft behavior:
 - `--cover-media-id` is for an existing WeChat permanent cover asset.
 - Do not assume a WeChat image URL or `mmbiz.qpic.cn` URL can be reused as `thumb_media_id`.
 - `--title`, `--author`, and `--digest` affect draft metadata, not necessarily visible body HTML.
+
+Draft creation from local HTML:
+
+- Use this path when the article HTML was generated locally, especially for local-first AI themes.
+- Validate config before upload or draft creation.
+- Upload local article images only after the user explicitly asks for upload or draft creation.
+- After upload, rewrite every local `<img src="...">` in the HTML to the returned WeChat image URL.
+- Verify that the final draft HTML has no remaining local image paths before creating the draft.
+- Use a valid uploaded image `media_id` as `thumb_media_id`; do not use the WeChat image URL as `thumb_media_id`.
+- Build a draft JSON with title, digest, content, `thumb_media_id`, and comment settings, then call `create_draft`.
+- Write draft JSON as UTF-8 without BOM.
+- Ensure JSON string fields remain strings; do not let shell serialization convert HTML content into an object.
 
 ## Preview Rules
 
