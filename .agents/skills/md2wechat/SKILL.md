@@ -207,6 +207,8 @@ Draft creation from local HTML:
 - Build a draft JSON with title, digest, content, `thumb_media_id`, and comment settings, then call `create_draft`.
 - Write draft JSON as UTF-8 without BOM.
 - Ensure JSON string fields remain strings; do not let shell serialization convert HTML content into an object.
+- On Windows/PowerShell, do not build draft JSON with inline Python, heredocs, or shell literals that contain non-ASCII title, author, or digest text. Create a temporary UTF-8 `.py` script instead, and let that script read metadata from UTF-8 files or source Markdown.
+- Before `create_draft`, read the generated draft JSON back as UTF-8 and verify `title`, `author`, and `digest` do not contain replacement artifacts such as question-mark substitution or mojibake byte-pattern text. If metadata is corrupted, stop and regenerate the JSON.
 
 ## Preview Rules
 
