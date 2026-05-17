@@ -46,6 +46,18 @@ Create and iteratively update a real `.md` file in the current workspace sandbox
 - Add short, factual alt text. Do not invent details not visible or implied.
 - Do not omit images unless they are duplicates, unusable, or clearly unrelated. Report omitted images and reasons outside the post.
 
+## Food Image Captions
+
+- For images placed in the FOOD section, use a caption format that includes:
+  1. the Chinese weekday,
+  2. the Chinese meal label for breakfast, lunch, dinner, or late-night snack,
+  3. a Chinese-style colon,
+  4. the dish, place, or concise food description.
+- The intended shape is `weekday + meal + colon + dish name`, matching the existing FOOD captions in the 2026-05-10 weekly article.
+- Infer the weekday and meal from embedded timestamps, filenames, folder dates, image chronology, article chronology, and visible food context.
+- If the dish name is unclear, use the known place or a factual visible description after the colon. If both the meal and dish are uncertain, still include the best inferred weekday and meal, then mention the uncertainty outside the post.
+- Do not use bare captions such as only a date, only a food name, or only "lunch" / "dinner" for FOOD images when enough context exists to follow this pattern.
+
 ## Core Formatting
 
 - Keep the user's weekly title as the H1.
@@ -54,7 +66,7 @@ Create and iteratively update a real `.md` file in the current workspace sandbox
 - Recognize the user's recurring section headings by exact text or meaning, including personal notes, technical learning, thoughts, workout, food, music, and Duolingo sections.
 - Reorder paragraphs only within the same section by inferred chronology: dates, weekdays, relative time words, event sequence, image timestamps, and filenames.
 - If chronology is ambiguous, keep the original relative order and mention the uncertainty outside the post.
-- For the three sections meaning "small events", "technical learning", and "thoughts", add a standalone bold number line before every body paragraph. Restart numbering from 1 in each of these sections:
+- For the four sections meaning "big events", "small events", "technical learning", and "thoughts", add a standalone bold number line before every body paragraph. Restart numbering from 1 in each of these sections:
 
 ```markdown
 **1**
